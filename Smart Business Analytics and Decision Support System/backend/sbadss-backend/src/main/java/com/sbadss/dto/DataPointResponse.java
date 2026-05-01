@@ -5,13 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChartSeriesDTO {
-    private String seriesName;
-    private List<DataPointDTO> dataPoints;
+public class DataPointResponse {
+    private String label;
+    private BigDecimal value;
 }

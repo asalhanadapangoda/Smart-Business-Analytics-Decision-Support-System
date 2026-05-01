@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class KpiMetricsDTO {
+public class KpiMetricsResponse {
     private BigDecimal totalRevenue;
     private BigDecimal totalProfit;
     private BigDecimal totalExpenses;

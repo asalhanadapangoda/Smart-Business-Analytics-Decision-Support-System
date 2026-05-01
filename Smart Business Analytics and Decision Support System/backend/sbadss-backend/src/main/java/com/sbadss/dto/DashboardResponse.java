@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DashboardResponse {
-    private KpiMetricsDTO kpiMetrics;
-    private ChartSeriesDTO salesTrends;
-    private ChartSeriesDTO topProducts;
+    private KpiMetricsResponse kpiMetrics;
+    private ChartSeriesResponse salesTrends;
+    private ChartSeriesResponse topProducts;
 }

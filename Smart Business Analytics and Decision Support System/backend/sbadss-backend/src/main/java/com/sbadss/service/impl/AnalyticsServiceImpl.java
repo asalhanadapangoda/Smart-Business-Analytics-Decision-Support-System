@@ -1,9 +1,9 @@
 package com.sbadss.service.impl;
 
-import com.sbadss.dto.ChartSeriesDTO;
+import com.sbadss.dto.ChartSeriesResponse;
 import com.sbadss.dto.DashboardResponse;
-import com.sbadss.dto.DataPointDTO;
-import com.sbadss.dto.KpiMetricsDTO;
+import com.sbadss.dto.DataPointResponse;
+import com.sbadss.dto.KpiMetricsResponse;
 import com.sbadss.repository.ExpenseRepository;
 import com.sbadss.repository.SaleItemRepository;
 import com.sbadss.repository.SaleRepository;
@@ -52,7 +52,7 @@ public class AnalyticsServiceImpl implements AnalyticsService {
         BigDecimal previousExpense = getExpense(startOfLastMonth.toLocalDate(), endOfLastMonth.toLocalDate(), branchId);
         BigDecimal previousProfit = previousRevenue.subtract(previousExpense);
 
-        KpiMetricsDTO kpi = KpiMetricsDTO.builder()
+        KpiMetricsResponse kpi = KpiMetricsResponse.builder()
                 .totalRevenue(currentRevenue)
                 .totalExpenses(currentExpense)
                 .totalProfit(currentProfit)
@@ -61,9 +61,9 @@ public class AnalyticsServiceImpl implements AnalyticsService {
                 .profitGrowth(calculateGrowth(currentProfit, previousProfit))
                 .build();
 
-        // Chart Data (Mocking Top Products for now to avoid overly complex JPQL, but actual implementation would join SaleItem and Product)
-        ChartSeriesDTO trends = fetchSalesTrends(startOfMonth, now, branchId);
-        ChartSeriesDTO topProducts = fetchTopProducts(branchId); // Placeholder implementation
+        // Chart Data
+        ChartSeriesResponse trends = fetchSalesTrends(startOfMonth, now, branchId);
+        ChartSeriesResponse topProducts = fetchTopProducts(branchId);
 
         return DashboardResponse.builder()
                 .kpiMetrics(kpi)
@@ -105,21 +105,21 @@ public class AnalyticsServiceImpl implements AnalyticsService {
         return diff.divide(previous, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).doubleValue();
     }
 
-    private ChartSeriesDTO fetchSalesTrends(LocalDateTime start, LocalDateTime end, Long branchId) {
+    private ChartSeriesResponse fetchSalesTrends(LocalDateTime start, LocalDateTime end, Long branchId) {
         List<Object[]> rawData = saleRepository.getSalesTrends(start, end, branchId);
-        List<DataPointDTO> points = new ArrayList<>();
+        List<DataPointResponse> points = new ArrayList<>();
         for (Object[] row : rawData) {
-            points.add(new DataPointDTO(row[0].toString(), (BigDecimal) row[1]));
+            points.add(new DataPointResponse(row[0].toString(), (BigDecimal) row[1]));
         }
-        return new ChartSeriesDTO("Daily Revenue", points);
+        return new ChartSeriesResponse("Daily Revenue", points);
     }
 
-    private ChartSeriesDTO fetchTopProducts(Long branchId) {
+    private ChartSeriesResponse fetchTopProducts(Long branchId) {
         List<Object[]> rawData = saleItemRepository.findTopProducts(branchId, PageRequest.of(0, 10)); // Top 10
-        List<DataPointDTO> points = new ArrayList<>();
+        List<DataPointResponse> points = new ArrayList<>();
         for (Object[] row : rawData) {
-            points.add(new DataPointDTO(row[0].toString(), new BigDecimal(((Number) row[1]).longValue())));
+            points.add(new DataPointResponse(row[0].toString(), new BigDecimal(((Number) row[1]).longValue())));
         }
-        return new ChartSeriesDTO("Top Products", points);
+        return new ChartSeriesResponse("Top Products", points);
     }
 }
