@@ -13,7 +13,10 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "sale_items")
+@Table(name = "sale_items", indexes = {
+        @Index(name = "idx_saleitem_sale_id", columnList = "sale_id"),
+        @Index(name = "idx_saleitem_product_id", columnList = "product_id")
+})
 public class SaleItem extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)

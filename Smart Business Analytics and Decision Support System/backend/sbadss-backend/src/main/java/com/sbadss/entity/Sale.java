@@ -15,7 +15,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "sales")
+@Table(name = "sales", indexes = {
+        @Index(name = "idx_sale_branch_id", columnList = "branch_id"),
+        @Index(name = "idx_sale_status", columnList = "status"),
+        @Index(name = "idx_sale_created_at", columnList = "created_at")
+})
 public class Sale extends BaseEntity {
 
     @Column(nullable = false, unique = true)

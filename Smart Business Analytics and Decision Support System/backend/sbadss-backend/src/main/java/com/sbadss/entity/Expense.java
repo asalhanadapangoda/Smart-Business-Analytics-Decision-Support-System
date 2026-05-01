@@ -14,7 +14,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "expenses")
+@Table(name = "expenses", indexes = {
+        @Index(name = "idx_expense_branch_id", columnList = "branch_id"),
+        @Index(name = "idx_expense_date", columnList = "expense_date")
+})
 public class Expense extends BaseEntity {
 
     @Column(nullable = false)
