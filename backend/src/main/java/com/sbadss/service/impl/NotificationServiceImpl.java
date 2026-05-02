@@ -3,15 +3,10 @@ package com.sbadss.service.impl;
 import com.sbadss.entity.Notification;
 import com.sbadss.entity.User;
 import com.sbadss.repository.NotificationRepository;
-import com.sbadss.repository.UserRepository;
 import com.sbadss.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Slf4j
 @Service
@@ -19,63 +14,63 @@ import java.util.List;
 public class NotificationServiceImpl implements NotificationService {
 
     private final NotificationRepository notificationRepository;
-    private final UserRepository userRepository;
-    private final SimpMessagingTemplate messagingTemplate;
+    private final com.sbadss.repository.UserRepository userRepository;
 
     @Override
-    @Transactional
-    public void sendNotification(Long userId, String title, String message, Notification.NotificationType type) {
-        User recipient = userRepository.findById(userId).orElse(null);
-        if (recipient == null) return;
+    public void sendBroadcast(String title, String message, Notification.NotificationType type) {
+        log.info("Broadcasting notification: {}", title);
+        userRepository.findAll().forEach(u -> {
+            createNotification(title, message, type, u);
+        });
+    }
 
+    @Override
+    public void createNotification(String title, String message, Notification.NotificationType type, User recipient) {
+        log.info("Creating notification: {} for user: {}", title, recipient.getUsername());
         Notification notification = Notification.builder()
-                .recipient(recipient)
                 .title(title)
                 .message(message)
                 .type(type)
+                .recipient(recipient)
+                .isRead(false)
                 .build();
-        
         notificationRepository.save(notification);
-
-        // Send via WebSocket
-        messagingTemplate.convertAndSendToUser(
-                recipient.getUsername(),
-                "/queue/notifications",
-                notification
-        );
-        log.info("Notification sent to user {}: {}", recipient.getUsername(), title);
     }
 
     @Override
-    @Transactional
-    public void sendBroadcast(String title, String message, Notification.NotificationType type) {
-        List<User> users = userRepository.findAll();
-        for (User user : users) {
-            sendNotification(user.getId(), title, message, type);
-        }
-        log.info("Broadcast notification sent: {}", title);
+    public void sendNotification(Long userId, String title, String message, Notification.NotificationType type) {
+        log.info("Sending notification to user ID: {}", userId);
+        Notification notification = Notification.builder()
+                .title(title)
+                .message(message)
+                .type(type)
+                .recipient(com.sbadss.entity.User.builder().id(userId).build())
+                .isRead(false)
+                .build();
+        notificationRepository.save(notification);
     }
 
     @Override
-    public List<Notification> getMyNotifications(Long userId) {
-        return notificationRepository.findByRecipientIdOrderByCreatedAtDesc(userId);
-    }
-
-    @Override
-    @Transactional
-    public void markAsRead(Long notificationId) {
-        notificationRepository.findById(notificationId).ifPresent(n -> {
+    public void markAllAsRead(Long userId) {
+        log.info("Marking all notifications as read for user ID: {}", userId);
+        notificationRepository.findByRecipientIdOrderByCreatedAtDesc(userId).forEach(n -> {
             n.setRead(true);
             notificationRepository.save(n);
         });
     }
 
     @Override
-    @Transactional
-    public void markAllAsRead(Long userId) {
-        List<Notification> unread = notificationRepository.findByRecipientIdOrderByCreatedAtDesc(userId);
-        unread.forEach(n -> n.setRead(true));
-        notificationRepository.saveAll(unread);
+    public void markAsRead(Long id) {
+        log.info("Marking notification as read: {}", id);
+        notificationRepository.findById(id).ifPresent(n -> {
+            n.setRead(true);
+            notificationRepository.save(n);
+        });
+    }
+
+    @Override
+    public java.util.List<Notification> getMyNotifications(Long userId) {
+        return notificationRepository.findByRecipientIdOrderByCreatedAtDesc(userId);
     }
 
     @Override

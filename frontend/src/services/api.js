@@ -49,12 +49,12 @@ export const authApi = {
 };
 
 export const salesApi = {
-  getAll: (params) => api.get('/sales', { params }),
+  getAll: (branchId) => api.get('/sales', { params: { branchId } }),
   create: (data) => api.post('/sales', data),
   complete: (id) => api.patch(`/sales/${id}/complete`),
   delete: (id) => api.delete(`/sales/${id}`),
+  downloadInvoice: (id) => api.get(`/sales/${id}/invoice`, { responseType: 'blob' }),
 };
-
 
 export const expensesApi = {
   getAll: (params) => api.get('/expenses', { params }),
@@ -67,6 +67,10 @@ export const productsApi = {
   getAll: (params) => api.get('/products', { params }),
   create: (data) => api.post('/products', data),
   update: (id, data) => api.put(`/products/${id}`, data),
+  updateStock: (id, quantity) => api.patch(`/products/${id}/stock`, null, { params: { quantity } }),
+  import: (formData) => api.post('/products/import', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  }),
   delete: (id) => api.delete(`/products/${id}`),
 };
 
@@ -78,10 +82,12 @@ export const categoriesApi = {
 export const customersApi = {
   getAll: (params) => api.get('/customers', { params }),
   create: (data) => api.post('/customers', data),
+  findByPhone: (phoneNumber) => api.get('/customers/search', { params: { phoneNumber } }),
 };
 
 export const analyticsApi = {
   getDashboard: (branchId) => api.get('/analytics/dashboard', { params: { branchId } }),
+  getProfitLoss: (branchId) => api.get('/analytics/profit-loss', { params: { branchId } }),
 };
 
 
@@ -100,6 +106,8 @@ export const branchesApi = {
 
 export const usersApi = {
   getAll: () => api.get('/v1/users'),
+  update: (id, data) => api.put(`/v1/users/${id}`, data),
+  delete: (id) => api.delete(`/v1/users/${id}`),
   updateRole: (id, roleName) => api.patch(`/v1/users/${id}/role`, null, { params: { roleName } }),
   toggleStatus: (id) => api.patch(`/v1/users/${id}/toggle-status`),
 };

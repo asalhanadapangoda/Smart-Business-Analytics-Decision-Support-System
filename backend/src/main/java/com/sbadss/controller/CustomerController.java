@@ -33,4 +33,14 @@ public class CustomerController {
         log.info("REST request to create customer: {}", dto.getName());
         return ResponseEntity.ok(ApiResponse.success(customerService.createCustomer(dto), "Customer created successfully"));
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<ApiResponse<CustomerResponse>> searchByPhone(@RequestParam String phoneNumber) {
+        log.info("REST request to search customer by phone: {}", phoneNumber);
+        CustomerResponse customer = customerService.findByPhoneNumber(phoneNumber);
+        if (customer == null) {
+            return ResponseEntity.ok(ApiResponse.success(null, "Customer not found"));
+        }
+        return ResponseEntity.ok(ApiResponse.success(customer, "Customer found"));
+    }
 }

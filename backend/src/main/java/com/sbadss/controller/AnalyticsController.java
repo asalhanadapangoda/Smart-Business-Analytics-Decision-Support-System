@@ -28,4 +28,13 @@ public class AnalyticsController {
         DashboardResponse data = analyticsService.getDashboardData(branchId);
         return ResponseEntity.ok(ApiResponse.success(data, "Dashboard data fetched successfully"));
     }
+
+    @GetMapping("/profit-loss")
+    @PreAuthorize("hasAnyRole('MANAGER', 'ADMIN')")
+    public ResponseEntity<ApiResponse<com.sbadss.dto.ProfitLossResponse>> getProfitLossData(
+            @RequestParam(required = false) Long branchId) {
+        log.info("REST request to fetch P&L data for branch: {}", branchId);
+        com.sbadss.dto.ProfitLossResponse data = analyticsService.getProfitLossData(branchId);
+        return ResponseEntity.ok(ApiResponse.success(data, "P&L data fetched successfully"));
+    }
 }

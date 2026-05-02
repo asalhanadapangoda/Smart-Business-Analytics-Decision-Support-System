@@ -20,6 +20,7 @@ const Customers = lazy(() => import('./pages/customers/Customers'));
 const Forecast = lazy(() => import('./pages/forecast/Forecast'));
 const AdminUsers = lazy(() => import('./pages/admin/AdminUsers'));
 const AdminBranches = lazy(() => import('./pages/admin/AdminBranches'));
+const ProfitLoss = lazy(() => import('./pages/analytics/ProfitLoss'));
 
 const qc = new QueryClient({ defaultOptions: { queries: { retry: 1, staleTime: 30000 } } });
 
@@ -50,6 +51,7 @@ export default function App() {
             <Route path="products" element={<Suspense fallback={<PageLoader />}><ProtectedRoute allowedRoles={['ADMIN','MANAGER']}><Products /></ProtectedRoute></Suspense>} />
             <Route path="customers" element={<Suspense fallback={<PageLoader />}><Customers /></Suspense>} />
             <Route path="reports" element={<ProtectedRoute allowedRoles={['ADMIN','MANAGER']}><Reports /></ProtectedRoute>} />
+            <Route path="profit-loss" element={<Suspense fallback={<PageLoader />}><ProtectedRoute allowedRoles={['ADMIN','MANAGER']}><ProfitLoss /></ProtectedRoute></Suspense>} />
             <Route path="forecast" element={<Suspense fallback={<PageLoader />}><ProtectedRoute allowedRoles={['ADMIN','MANAGER']}><Forecast /></ProtectedRoute></Suspense>} />
             <Route path="admin/users" element={<Suspense fallback={<PageLoader />}><ProtectedRoute allowedRoles={['ADMIN']}><AdminUsers /></ProtectedRoute></Suspense>} />
             <Route path="admin/branches" element={<Suspense fallback={<PageLoader />}><ProtectedRoute allowedRoles={['ADMIN']}><AdminBranches /></ProtectedRoute></Suspense>} />

@@ -38,14 +38,14 @@ public class SaleController {
 
     @PostMapping
     @PreAuthorize("hasAnyRole('CASHIER', 'MANAGER', 'ADMIN')")
-    public ResponseEntity<ApiResponse<Sale>> createSale(@Valid @RequestBody SaleRequest request) {
+    public ResponseEntity<ApiResponse<SaleResponse>> createSale(@Valid @RequestBody SaleRequest request) {
         log.info("REST request to create sale for branch: {}", request.getBranchId());
         return ResponseEntity.ok(ApiResponse.success(saleService.createSale(request), "Sale recorded successfully"));
     }
 
     @PatchMapping("/{id}/complete")
     @PreAuthorize("hasAnyRole('CASHIER', 'MANAGER', 'ADMIN')")
-    public ResponseEntity<ApiResponse<Sale>> completeSale(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<SaleResponse>> completeSale(@PathVariable Long id) {
         log.info("REST request to complete sale: {}", id);
         return ResponseEntity.ok(ApiResponse.success(saleService.completeSale(id), "Bill completed successfully"));
     }
@@ -56,5 +56,20 @@ public class SaleController {
         log.info("REST request to delete sale: {}", id);
         saleService.deleteSale(id);
         return ResponseEntity.ok(ApiResponse.success(null, "Sale deleted successfully"));
+    }
+
+    @GetMapping("/{id}/invoice")
+    @PreAuthorize("hasAnyRole('CASHIER', 'MANAGER', 'ADMIN')")
+    public ResponseEntity<org.springframework.core.io.InputStreamResource> getInvoice(@PathVariable Long id) {
+        log.info("REST request to download invoice for sale: {}", id);
+        java.io.ByteArrayInputStream bis = saleService.getInvoicePdf(id);
+        org.springframework.http.HttpHeaders headers = new org.springframework.http.HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=invoice-" + id + ".pdf");
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(org.springframework.http.MediaType.APPLICATION_PDF)
+                .body(new org.springframework.core.io.InputStreamResource(bis));
     }
 }

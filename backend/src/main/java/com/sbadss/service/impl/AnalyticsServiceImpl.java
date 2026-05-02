@@ -32,7 +32,43 @@ public class AnalyticsServiceImpl implements AnalyticsService {
     private final SaleRepository saleRepository;
     private final ExpenseRepository expenseRepository;
     private final SaleItemRepository saleItemRepository;
+    private final com.sbadss.repository.BranchRepository branchRepository;
     private final SaleMapper saleMapper;
+
+    @Override
+    public com.sbadss.dto.ProfitLossResponse getProfitLossData(Long branchId) {
+        log.info("Calculating P&L for branch: {}", branchId);
+        
+        LocalDateTime startOfMonth = LocalDateTime.now().withDayOfMonth(1).with(LocalTime.MIN);
+        LocalDateTime now = LocalDateTime.now();
+
+        BigDecimal revenue = getRevenue(startOfMonth, now, branchId);
+        BigDecimal cogs = saleItemRepository.calculateTotalCogs(startOfMonth, now, branchId);
+        if (cogs == null) cogs = BigDecimal.ZERO;
+
+        BigDecimal grossProfit = revenue.subtract(cogs);
+        BigDecimal expenses = getExpense(startOfMonth.toLocalDate(), now.toLocalDate(), branchId);
+        
+        // Tax logic
+        BigDecimal taxRate = BigDecimal.ZERO;
+        if (branchId != null) {
+            taxRate = branchRepository.findById(branchId)
+                    .map(com.sbadss.entity.Branch::getTaxRate)
+                    .orElse(BigDecimal.ZERO);
+        }
+        BigDecimal taxAmount = revenue.multiply(taxRate).divide(new BigDecimal("100"), 2, RoundingMode.HALF_UP);
+        BigDecimal netProfit = grossProfit.subtract(expenses).subtract(taxAmount);
+
+        return com.sbadss.dto.ProfitLossResponse.builder()
+                .grossRevenue(revenue)
+                .costOfGoodsSold(cogs)
+                .grossProfit(grossProfit)
+                .operatingExpenses(expenses)
+                .taxAmount(taxAmount)
+                .netProfit(netProfit)
+                .revenueByCategory(new java.util.HashMap<>()) // Simplified for now
+                .build();
+    }
 
     @Override
     @Cacheable(value = "dashboardData", key = "#branchId != null ? #branchId : 'global'")

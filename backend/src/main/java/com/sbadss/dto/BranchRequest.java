@@ -13,9 +13,13 @@ public class BranchRequest {
     @NotBlank(message = "Branch name is required")
     private String name;
 
+    private String branchCode;
+
     @NotBlank(message = "Location is required")
     private String location;
 
     @Pattern(regexp = "^[+]?[0-9]{7,15}$", message = "Invalid contact number format")
     private String contactNumber;
+
+    private java.math.BigDecimal taxRate;
 }

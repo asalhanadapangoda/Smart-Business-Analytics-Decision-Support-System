@@ -3,18 +3,39 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { customersApi } from '@/services/api';
 import { Plus, Users } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useAuthStore } from '@/store/authStore';
 
 export default function Customers() {
+  const { user } = useAuthStore();
   const qc = useQueryClient();
-  const [form, setForm] = useState({ name: '', email: '', phoneNumber: '', address: '', branchId: '' });
+  const [form, setForm] = useState({ name: '', email: '', phoneNumber: '', address: '' });
   const [showForm, setShowForm] = useState(false);
 
   const { data, isLoading } = useQuery({ queryKey: ['customers'], queryFn: () => customersApi.getAll().then(r => r.data.data) });
 
   const createMutation = useMutation({
     mutationFn: (d) => customersApi.create(d),
-    onSuccess: () => { toast.success('Customer added'); qc.invalidateQueries(['customers']); setShowForm(false); },
+    onSuccess: () => { 
+      toast.success('Customer added'); 
+      qc.invalidateQueries(['customers']); 
+      setShowForm(false); 
+      setForm({ name: '', email: '', phoneNumber: '', address: '' });
+    },
+    onError: (err) => {
+      const msg = err.response?.data?.message || 'Check your inputs';
+      toast.error('Validation failed: ' + msg);
+    }
   });
+
+  const handleSaveCustomer = () => {
+    if (!form.name || !form.phoneNumber) {
+      return toast.error('Name and Phone are required');
+    }
+    createMutation.mutate({
+      ...form,
+      branchId: user?.branchId || 1
+    });
+  };
 
   const customers = data || [];
 
@@ -33,7 +54,9 @@ export default function Customers() {
             <div><label>Phone</label><input className="input" value={form.phoneNumber} onChange={e => setForm({ ...form, phoneNumber: e.target.value })} /></div>
             <div><label>Address</label><input className="input" value={form.address} onChange={e => setForm({ ...form, address: e.target.value })} /></div>
           </div>
-          <button className="btn btn-primary" onClick={() => createMutation.mutate(form)} disabled={createMutation.isPending}>{createMutation.isPending ? 'Saving...' : 'Save Customer'}</button>
+          <button className="btn btn-primary" onClick={handleSaveCustomer} disabled={createMutation.isPending}>
+            {createMutation.isPending ? 'Saving...' : 'Save Customer'}
+          </button>
         </div>
       )}
       <div className="card" style={{ padding: 0 }}>
@@ -41,14 +64,16 @@ export default function Customers() {
           {isLoading ? <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--color-text-muted)' }}>Loading...</div>
             : customers.length === 0 ? <div style={{ padding: '3rem', textAlign: 'center', color: 'var(--color-text-muted)' }}><Users size={48} style={{ margin: '0 auto 1rem', opacity: 0.3 }} /><p>No customers yet.</p></div>
             : <table>
-                <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Address</th><th>Branch</th></tr></thead>
+                <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Points</th><th>Address</th></tr></thead>
                 <tbody>{customers.map(c => (
                   <tr key={c.id}>
                     <td style={{ fontWeight: 600 }}>{c.name}</td>
                     <td style={{ color: 'var(--color-text-muted)', fontSize: '0.875rem' }}>{c.email || '—'}</td>
                     <td>{c.phoneNumber}</td>
+                    <td>
+                      <span className="badge badge-success">{c.loyaltyPoints || 0}</span>
+                    </td>
                     <td style={{ color: 'var(--color-text-muted)', fontSize: '0.875rem' }}>{c.address || '—'}</td>
-                    <td>{c.branchId}</td>
                   </tr>
                 ))}</tbody>
               </table>}

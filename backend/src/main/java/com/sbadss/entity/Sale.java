@@ -44,6 +44,14 @@ public class Sale extends BaseEntity {
     @Column(nullable = false)
     private SaleStatus status = SaleStatus.DRAFT;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_method")
+    private PaymentMethod paymentMethod = PaymentMethod.CASH;
+
+    public enum PaymentMethod {
+        CASH, CARD, BANK_TRANSFER, LOYALTY_POINTS
+    }
+
     @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SaleItem> items = new ArrayList<>();
 

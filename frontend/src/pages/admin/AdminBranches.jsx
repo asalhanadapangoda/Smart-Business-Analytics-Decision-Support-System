@@ -36,6 +36,7 @@ export default function AdminBranches() {
                   <span className={`badge ${b.active?'badge-success':'badge-danger'}`}>{b.active?'Active':'Inactive'}</span>
                 </div>
                 <h4 style={{ fontWeight:700,marginBottom:'0.25rem' }}>{b.name}</h4>
+                <p style={{ color:'var(--color-primary)',fontSize:'0.7rem',fontWeight:600,marginBottom:'0.5rem' }}>Code: {b.branchCode || 'N/A'}</p>
                 <p style={{ color:'var(--color-text-muted)',fontSize:'0.8rem',marginBottom:'0.5rem' }}>📍 {b.location}</p>
                 {b.contactNumber && <p style={{ color:'var(--color-text-muted)',fontSize:'0.8rem' }}>📞 {b.contactNumber}</p>}
                 {b.active && <button className="btn btn-danger" style={{ marginTop:'0.75rem',padding:'0.3rem 0.6rem',fontSize:'0.75rem' }} onClick={()=>{if(confirm('Deactivate branch?'))deactivateMutation.mutate(b.id)}}>Deactivate</button>}

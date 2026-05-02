@@ -14,4 +14,7 @@ public interface SaleItemRepository extends JpaRepository<SaleItem, Long> {
 
     @Query("SELECT p.name, SUM(si.quantity) as totalQty FROM SaleItem si JOIN si.product p JOIN si.sale s WHERE s.status = 'COMPLETED' AND (:branchId IS NULL OR s.branch.id = :branchId) GROUP BY p.id, p.name ORDER BY totalQty DESC")
     List<Object[]> findTopProducts(@Param("branchId") Long branchId, Pageable pageable);
+
+    @Query("SELECT SUM(si.quantity * p.purchasePrice) FROM SaleItem si JOIN si.product p JOIN si.sale s WHERE s.status = 'COMPLETED' AND s.createdAt BETWEEN :start AND :end AND (:branchId IS NULL OR s.branch.id = :branchId)")
+    java.math.BigDecimal calculateTotalCogs(@Param("start") java.time.LocalDateTime start, @Param("end") java.time.LocalDateTime end, @Param("branchId") Long branchId);
 }

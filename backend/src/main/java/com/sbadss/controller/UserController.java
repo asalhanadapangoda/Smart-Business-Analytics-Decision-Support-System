@@ -50,4 +50,18 @@ public class UserController {
         log.info("PATCH /api/v1/users/{}/toggle-status", id);
         return ResponseEntity.ok(ApiResponse.success(userService.toggleUserStatus(id), "User status updated successfully"));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<UserResponse>> updateUser(
+            @PathVariable Long id, @RequestBody com.sbadss.dto.RegisterRequest request) {
+        log.info("PUT /api/v1/users/{}", id);
+        return ResponseEntity.ok(ApiResponse.success(userService.updateUser(id, request), "User updated successfully"));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<Void>> deleteUser(@PathVariable Long id) {
+        log.info("DELETE /api/v1/users/{}", id);
+        userService.deleteUser(id);
+        return ResponseEntity.ok(ApiResponse.success("User deleted successfully"));
+    }
 }

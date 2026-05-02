@@ -13,13 +13,14 @@ const navItems = [
   { to: '/expenses',  icon: DollarSign,      label: 'Expenses',   roles: ['ADMIN', 'MANAGER'] },
   { to: '/products',  icon: Package,         label: 'Products',   roles: ['ADMIN', 'MANAGER'] },
   { to: '/customers', icon: Users,           label: 'Customers',  roles: ['ADMIN', 'MANAGER', 'CASHIER'] },
+  { to: '/profit-loss', icon: TrendingUp,     label: 'Profit & Loss', roles: ['ADMIN', 'MANAGER'] },
   { to: '/reports',   icon: FileText,        label: 'Reports',    roles: ['ADMIN', 'MANAGER'] },
   { to: '/forecast',  icon: TrendingUp,      label: 'AI Forecast', roles: ['ADMIN', 'MANAGER'] },
   { to: '/admin/users',    icon: UserCog,    label: 'Users',      roles: ['ADMIN'] },
   { to: '/admin/branches', icon: Building2,  label: 'Branches',   roles: ['ADMIN'] },
 ];
 
-export const Sidebar = () => {
+export const Sidebar = ({ isOpen, onClose }) => {
   const [collapsed, setCollapsed] = useState(false);
   const { user, logout } = useAuthStore();
   const navigate = useNavigate();
@@ -32,20 +33,25 @@ export const Sidebar = () => {
   const visibleItems = navItems.filter(item => item.roles.includes(user?.role));
 
   return (
-    <aside style={{
+    <aside className={`sidebar ${isOpen ? 'open' : ''}`} style={{
       width: collapsed ? '64px' : '240px',
       minHeight: '100vh',
       background: 'var(--color-surface)',
       borderRight: '1px solid var(--color-border)',
       display: 'flex',
       flexDirection: 'column',
-      transition: 'width 0.3s ease',
+      transition: 'width 0.3s ease, transform 0.3s ease',
       flexShrink: 0,
     }}>
       {/* Logo */}
-      <div style={{ padding: '1.25rem', borderBottom: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-        <div style={{ width: 36, height: 36, borderRadius: '0.5rem', background: 'linear-gradient(135deg, #6366f1, #22d3ee)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontWeight: 800, fontSize: '1rem', color: 'white' }}>S</div>
-        {!collapsed && <span style={{ fontWeight: 700, fontSize: '0.9rem', whiteSpace: 'nowrap' }}>SBADSS</span>}
+      <div style={{ padding: '1.25rem', borderBottom: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ width: 36, height: 36, borderRadius: '0.5rem', background: 'linear-gradient(135deg, #6366f1, #22d3ee)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontWeight: 800, fontSize: '1rem', color: 'white' }}>S</div>
+          {!collapsed && <span style={{ fontWeight: 700, fontSize: '0.9rem', whiteSpace: 'nowrap' }}>SBADSS</span>}
+        </div>
+        <button className="mobile-toggle" onClick={onClose} style={{ background: 'transparent', border: 'none', color: 'var(--color-text-muted)', cursor: 'pointer' }}>
+          <LogOut size={20} style={{ transform: 'rotate(180deg)' }} />
+        </button>
       </div>
 
       {/* Nav */}

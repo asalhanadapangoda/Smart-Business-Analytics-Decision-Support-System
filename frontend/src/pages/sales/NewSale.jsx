@@ -13,6 +13,11 @@ export default function NewSale() {
   const navigate = useNavigate();
   const [cart, setCart] = useState([]);
   const [selectedCustomer, setSelectedCustomer] = useState('');
+  const [phoneSearch, setPhoneSearch] = useState('');
+  const [foundCustomer, setFoundCustomer] = useState(null);
+  const [productSearch, setProductSearch] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState('CASH');
+  const [completedSaleId, setCompletedSaleId] = useState(null);
 
   // Fetch products and customers
   const { data: products = [] } = useQuery({
@@ -27,12 +32,51 @@ export default function NewSale() {
 
   const createMutation = useMutation({
     mutationFn: (data) => salesApi.create(data),
-    onSuccess: () => {
+    onSuccess: (res) => {
       toast.success('Sale recorded successfully');
-      navigate('/sales');
+      setCompletedSaleId(res.data.data.id);
+      // Don't navigate away immediately so they can print invoice
     },
-    onError: () => toast.error('Failed to create sale. Please try again.'),
+    onError: (err) => {
+      const msg = err.response?.data?.message || 'Failed to create sale';
+      toast.error(msg);
+    }
   });
+
+  const handleDownloadInvoice = async (id) => {
+    try {
+      const res = await salesApi.downloadInvoice(id || completedSaleId);
+      const url = window.URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `invoice-${id || completedSaleId}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      toast.success('Invoice downloaded');
+    } catch (err) {
+      toast.error('Failed to download invoice');
+    }
+  };
+
+  const handlePhoneSearch = async (val) => {
+    setPhoneSearch(val);
+    if (val.length >= 10) {
+      try {
+        const res = await customersApi.findByPhone(val);
+        if (res.data.data) {
+          setFoundCustomer(res.data.data);
+          setSelectedCustomer(res.data.data.id);
+          toast.success(`Customer found: ${res.data.data.name}`);
+        } else {
+          setFoundCustomer(null);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      setFoundCustomer(null);
+    }
+  };
 
   const addToCart = (product) => {
     setCart(prev => {
@@ -63,12 +107,18 @@ export default function NewSale() {
 
   const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
+  const filteredProducts = products.filter(p => 
+    p.name.toLowerCase().includes(productSearch.toLowerCase()) || 
+    (p.sku && p.sku.toLowerCase().includes(productSearch.toLowerCase()))
+  );
+
   const handleSubmit = () => {
     if (cart.length === 0) return toast.error('Cart is empty');
     
     const payload = {
       customerId: selectedCustomer ? parseInt(selectedCustomer) : null,
-      branchId: user.branchId || 1, // Fallback to 1 if not set
+      branchId: user.branchId || 1,
+      paymentMethod: paymentMethod,
       items: cart.map(item => ({
         productId: item.id,
         quantity: item.quantity
@@ -95,34 +145,80 @@ export default function NewSale() {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '1.5rem', alignItems: 'start' }}>
         {/* Product Selection */}
         <div className="card">
-          <div style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <Package size={20} color="var(--color-primary)" />
-            <h3 style={{ fontWeight: 700 }}>Select Products</h3>
+          <div style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Package size={20} color="var(--color-primary)" />
+              <h3 style={{ fontWeight: 700 }}>Select Products</h3>
+            </div>
+            <div style={{ position: 'relative' }}>
+              <input 
+                className="input" 
+                style={{ width: '250px', paddingLeft: '2.5rem' }} 
+                placeholder="Search name or code..." 
+                value={productSearch}
+                onChange={(e) => setProductSearch(e.target.value)}
+              />
+              <div style={{ position: 'absolute', left: '0.875rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)' }}>
+                <Package size={16} />
+              </div>
+            </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1rem' }}>
-            {products.map(product => (
-              <div 
-                key={product.id} 
-                className="card" 
-                style={{ 
-                  cursor: 'pointer', 
-                  transition: 'all 0.2s', 
-                  border: '1px solid var(--color-border)',
-                  padding: '1rem'
-                }}
-                onClick={() => addToCart(product)}
-                onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--color-primary)'}
-                onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--color-border)'}
-              >
-                <p style={{ fontWeight: 600, marginBottom: '0.25rem' }}>{product.name}</p>
-                <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', marginBottom: '0.75rem' }}>{product.categoryName}</p>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontWeight: 700, color: 'var(--color-primary)' }}>{fmt(product.price)}</span>
-                  <Plus size={16} color="var(--color-text-muted)" />
-                </div>
-              </div>
-            ))}
+          <div className="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Product Details</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Stock</th>
+                  <th style={{ textAlign: 'right' }}>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredProducts.length === 0 ? (
+                  <tr>
+                    <td colSpan="5" style={{ textAlign: 'center', padding: '2rem', color: 'var(--color-text-muted)' }}>
+                      No products match your search.
+                    </td>
+                  </tr>
+                ) : filteredProducts.map(product => (
+                  <tr key={product.id}>
+                    <td>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                        <div style={{ width: 32, height: 32, borderRadius: '0.5rem', background: 'var(--color-surface-2)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--color-border)' }}>
+                          <Package size={16} color="var(--color-text-muted)" />
+                        </div>
+                        <div>
+                          <div style={{ fontWeight: 600 }}>{product.name}</div>
+                          <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)' }}>Code: {product.sku || 'N/A'}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span style={{ fontSize: '0.75rem', padding: '0.2rem 0.5rem', background: 'var(--color-bg)', borderRadius: '1rem', color: 'var(--color-text-muted)' }}>
+                        {product.categoryName}
+                      </span>
+                    </td>
+                    <td style={{ fontWeight: 700, color: 'var(--color-primary)' }}>{fmt(product.price)}</td>
+                    <td>
+                      <span className={`badge ${product.stockQuantity > 20 ? 'badge-success' : product.stockQuantity > 5 ? 'badge-warning' : 'badge-danger'}`}>
+                        {product.stockQuantity}
+                      </span>
+                    </td>
+                    <td style={{ textAlign: 'right' }}>
+                      <button 
+                        className="btn btn-primary" 
+                        style={{ padding: '0.4rem 0.6rem' }} 
+                        onClick={() => addToCart(product)}
+                      >
+                        <Plus size={14} /> Add
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
 
@@ -134,14 +230,46 @@ export default function NewSale() {
               <User size={18} color="var(--color-primary)" />
               <h3 style={{ fontWeight: 700 }}>Customer</h3>
             </div>
+            
+            <div style={{ marginBottom: '1rem' }}>
+              <label style={{ fontSize: '0.75rem', marginBottom: '0.25rem' }}>Search by Phone</label>
+              <input 
+                className="input" 
+                placeholder="0712345678..." 
+                value={phoneSearch}
+                onChange={(e) => handlePhoneSearch(e.target.value)}
+              />
+            </div>
+
+            {foundCustomer && (
+              <div style={{ padding: '0.75rem', background: 'rgba(99,102,241,0.1)', borderRadius: '0.5rem', marginBottom: '1rem', border: '1px solid var(--color-primary)' }}>
+                <p style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-primary)' }}>Matched Customer:</p>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontWeight: 600 }}>{foundCustomer.name}</span>
+                  <span className="badge badge-success" style={{ fontSize: '0.7rem' }}>{foundCustomer.loyaltyPoints || 0} Points</span>
+                </div>
+              </div>
+            )}
+
+            <label style={{ fontSize: '0.75rem', marginBottom: '0.25rem' }}>Or Select Manually</label>
             <select 
               className="input" 
               value={selectedCustomer} 
-              onChange={(e) => setSelectedCustomer(e.target.value)}
+              onChange={(e) => {
+                setSelectedCustomer(e.target.value);
+                const c = customers.find(curr => curr.id == e.target.value);
+                if(c) {
+                  setPhoneSearch(c.phoneNumber);
+                  setFoundCustomer(c);
+                } else {
+                  setPhoneSearch('');
+                  setFoundCustomer(null);
+                }
+              }}
             >
               <option value="">Walk-in Customer</option>
               {customers.map(c => (
-                <option key={c.id} value={c.id}>{c.name}</option>
+                <option key={c.id} value={c.id}>{c.name} ({c.phoneNumber})</option>
               ))}
             </select>
           </div>
@@ -176,7 +304,17 @@ export default function NewSale() {
               )}
             </div>
 
-            <div style={{ paddingTop: '1rem', borderTop: '2px solid var(--color-border)', marginBottom: '1.5rem' }}>
+            <div style={{ paddingTop: '1rem', borderTop: '2px solid var(--color-border)', marginBottom: '1rem' }}>
+              <div style={{ marginBottom: '1rem' }}>
+                <label style={{ fontSize: '0.75rem', marginBottom: '0.25rem' }}>Payment Method</label>
+                <select className="input" value={paymentMethod} onChange={e => setPaymentMethod(e.target.value)}>
+                  <option value="CASH">Cash</option>
+                  <option value="CARD">Card</option>
+                  <option value="BANK_TRANSFER">Bank Transfer</option>
+                  {foundCustomer && <option value="LOYALTY_POINTS">Loyalty Points ({foundCustomer.loyaltyPoints || 0})</option>}
+                </select>
+              </div>
+
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
                 <span style={{ color: 'var(--color-text-muted)' }}>Subtotal</span>
                 <span>{fmt(total)}</span>
@@ -187,15 +325,37 @@ export default function NewSale() {
               </div>
             </div>
 
-            <button 
-              className="btn btn-primary" 
-              style={{ width: '100%', padding: '0.75rem', fontSize: '1rem' }}
-              disabled={cart.length === 0 || createMutation.isPending}
-              onClick={handleSubmit}
-            >
-              <Save size={18} /> {createMutation.isPending ? 'Processing...' : 'Complete Sale'}
-            </button>
+            {completedSaleId ? (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                <button 
+                  className="btn btn-primary" 
+                  style={{ width: '100%', padding: '0.75rem' }}
+                  onClick={() => handleDownloadInvoice()}
+                >
+                  <Save size={18} /> Download Invoice
+                </button>
+                <button 
+                  className="btn btn-secondary" 
+                  style={{ width: '100%', padding: '0.75rem' }}
+                  onClick={() => navigate('/sales')}
+                >
+                  Done
+                </button>
+              </div>
+            ) : (
+              <button 
+                className="btn btn-primary" 
+                style={{ width: '100%', padding: '0.75rem', fontSize: '1rem' }}
+                disabled={cart.length === 0 || createMutation.isPending}
+                onClick={handleSubmit}
+              >
+                <Save size={18} /> {createMutation.isPending ? 'Processing...' : 'Complete Sale'}
+              </button>
+            )}
           </div>
+        </div>
+      </div>
+    </div>
         </div>
       </div>
     </div>

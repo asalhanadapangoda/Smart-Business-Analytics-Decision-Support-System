@@ -49,6 +49,14 @@ public class BranchServiceImpl implements BranchService {
             throw new BusinessException("Branch with name '" + request.getName() + "' already exists");
         }
         Branch branch = branchMapper.toEntity(request);
+        
+        // Auto-generate branchCode if not provided
+        if (branch.getBranchCode() == null || branch.getBranchCode().isBlank()) {
+            long count = branchRepository.count() + 1;
+            String code = String.format("BR-%03d", count);
+            branch.setBranchCode(code);
+        }
+        
         return branchMapper.toResponse(branchRepository.save(branch));
     }
 
@@ -61,6 +69,9 @@ public class BranchServiceImpl implements BranchService {
         branch.setName(request.getName());
         branch.setLocation(request.getLocation());
         branch.setContactNumber(request.getContactNumber());
+        if (request.getTaxRate() != null) {
+            branch.setTaxRate(request.getTaxRate());
+        }
         return branchMapper.toResponse(branchRepository.save(branch));
     }
 

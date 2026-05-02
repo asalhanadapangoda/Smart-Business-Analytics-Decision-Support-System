@@ -13,8 +13,10 @@ public class BranchMapper {
         return BranchResponse.builder()
                 .id(branch.getId())
                 .name(branch.getName())
+                .branchCode(branch.getBranchCode())
                 .location(branch.getLocation())
                 .contactNumber(branch.getContactNumber())
+                .taxRate(branch.getTaxRate())
                 .active(branch.isActive())
                 .build();
     }
@@ -23,8 +25,10 @@ public class BranchMapper {
         if (request == null) return null;
         Branch branch = new Branch();
         branch.setName(request.getName());
+        branch.setBranchCode(request.getBranchCode());
         branch.setLocation(request.getLocation());
         branch.setContactNumber(request.getContactNumber());
+        branch.setTaxRate(request.getTaxRate() != null ? request.getTaxRate() : java.math.BigDecimal.ZERO);
         branch.setActive(true);
         return branch;
     }

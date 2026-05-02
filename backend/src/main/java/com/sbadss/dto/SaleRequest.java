@@ -23,4 +23,6 @@ public class SaleRequest {
     @NotEmpty(message = "Sale must have at least one item")
     @Valid
     private List<SaleItemRequest> items;
+
+    private String paymentMethod;
 }

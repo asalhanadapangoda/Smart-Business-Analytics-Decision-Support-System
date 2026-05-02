@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { salesApi } from '@/services/api';
-import { Plus, CheckCircle, Trash2, ShoppingCart } from 'lucide-react';
+import { Plus, CheckCircle, Trash2, ShoppingCart, Download } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuthStore } from '@/store/authStore';
 import { format } from 'date-fns';
@@ -27,6 +27,21 @@ export default function SalesList() {
     mutationFn: (id) => salesApi.delete(id),
     onSuccess: () => { toast.success('Sale deleted'); qc.invalidateQueries(['sales']); },
   });
+
+  const handleDownloadInvoice = async (id) => {
+    try {
+      const res = await salesApi.downloadInvoice(id);
+      const url = window.URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `invoice-${id}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      toast.success('Invoice downloaded');
+    } catch (err) {
+      toast.error('Failed to download invoice');
+    }
+  };
 
   const sales = data || [];
 
@@ -79,6 +94,10 @@ export default function SalesList() {
                     </td>
                     <td>
                       <div style={{ display: 'flex', gap: '0.5rem' }}>
+                        <button className="btn btn-secondary" style={{ padding: '0.3rem 0.6rem', fontSize: '0.75rem' }}
+                          onClick={() => handleDownloadInvoice(sale.id)}>
+                          <Download size={14} /> Invoice
+                        </button>
                         {sale.status === 'DRAFT' && (
                           <>
                             <button className="btn btn-success" style={{ padding: '0.3rem 0.6rem', fontSize: '0.75rem' }}

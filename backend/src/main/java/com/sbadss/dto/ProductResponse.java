@@ -21,15 +21,21 @@ public class ProductResponse {
     @NotBlank(message = "Product name is required")
     private String name;
 
+    private String sku;
+
     private String description;
 
     @NotNull(message = "Price is required")
     @Positive(message = "Price must be positive")
     private BigDecimal price;
 
+    private BigDecimal purchasePrice;
+
     @NotNull(message = "Stock quantity is required")
     @Min(value = 0, message = "Stock quantity cannot be negative")
     private Integer stockQuantity;
+
+    private Integer minThreshold;
 
     @NotNull(message = "Category ID is required")
     private Long categoryId;

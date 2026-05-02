@@ -10,10 +10,12 @@ const fmt = (n) => new Intl.NumberFormat('en-US', { style: 'currency', currency:
 export default function Products() {
   const { user } = useAuthStore();
   const qc = useQueryClient();
-  const [form, setForm] = useState({ name: '', description: '', price: '', stockQuantity: '', categoryId: '' });
+  const [form, setForm] = useState({ name: '', sku: '', description: '', price: '', stockQuantity: '', categoryId: '' });
   const [showForm, setShowForm] = useState(false);
   const [showCatForm, setShowCatForm] = useState(false);
   const [newCat, setNewCat] = useState({ name: '', description: '' });
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
   const { data, isLoading } = useQuery({ 
     queryKey: ['products'], 
@@ -31,7 +33,7 @@ export default function Products() {
       toast.success('Product created'); 
       qc.invalidateQueries(['products']); 
       setShowForm(false); 
-      setForm({ name: '', description: '', price: '', stockQuantity: '', categoryId: '' });
+      setForm({ name: '', sku: '', description: '', price: '', stockQuantity: '', categoryId: '' });
     },
     onError: (err) => {
       const msg = err.response?.data?.message || 'Check your inputs';
@@ -49,6 +51,24 @@ export default function Products() {
     },
   });
 
+  const importMutation = useMutation({
+    mutationFn: (formData) => productsApi.import(formData),
+    onSuccess: () => {
+      toast.success('Products imported successfully');
+      qc.invalidateQueries(['products']);
+    },
+    onError: (err) => toast.error('Import failed: ' + (err.response?.data?.message || 'Check CSV format'))
+  });
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('branchId', user?.branchId || 1);
+    importMutation.mutate(formData);
+  };
+
   const handleSaveProduct = () => {
     if (!form.name || !form.price || !form.stockQuantity || !form.categoryId) {
       return toast.error('Please fill in all required fields');
@@ -58,8 +78,9 @@ export default function Products() {
       ...form,
       price: parseFloat(form.price),
       stockQuantity: parseInt(form.stockQuantity),
+      minThreshold: parseInt(form.minThreshold) || 5,
       categoryId: parseInt(form.categoryId),
-      branchId: user?.branchId || 1 // Important fix for 422
+      branchId: user?.branchId || 1
     };
 
     createMutation.mutate(payload);
@@ -68,11 +89,52 @@ export default function Products() {
   const products = data || [];
   const categories = cats || [];
 
+  const filteredProducts = products.filter(p => {
+    const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'all' || p.categoryName === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  const groupedProducts = filteredProducts.reduce((acc, p) => {
+    const cat = p.categoryName || 'Uncategorized';
+    if (!acc[cat]) acc[cat] = [];
+    acc[cat].push(p);
+    return acc;
+  }, {});
+
   return (
     <div>
       <div className="page-header">
-        <div><h1 className="page-title">Products</h1><p className="page-subtitle">{products.length} products in inventory</p></div>
-        <div style={{ display: 'flex', gap: '0.75rem' }}>
+        <div><h1 className="page-title">Inventory</h1><p className="page-subtitle">{products.length} products total</p></div>
+        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+          <div style={{ position: 'relative' }}>
+            <input 
+              className="input" 
+              style={{ width: '240px', paddingLeft: '2.5rem' }} 
+              placeholder="Search products..." 
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
+            />
+            <div style={{ position: 'absolute', left: '0.875rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)' }}>
+              <Package size={16} />
+            </div>
+          </div>
+          <select 
+            className="input" 
+            style={{ width: '160px' }}
+            value={selectedCategory}
+            onChange={e => setSelectedCategory(e.target.value)}
+          >
+            <option value="all">All Categories</option>
+            {categories.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
+          </select>
+          <div style={{ width: '1px', height: '24px', background: 'var(--color-border)', margin: '0 0.5rem' }} />
+          
+          <label className="btn btn-secondary" style={{ cursor: 'pointer' }}>
+            <FolderPlus size={16} /> Import CSV
+            <input type="file" accept=".csv" style={{ display: 'none' }} onChange={handleFileUpload} />
+          </label>
+          
           <button className="btn btn-secondary" onClick={() => setShowCatForm(true)}><FolderPlus size={16} /> New Category</button>
           <button className="btn btn-primary" onClick={() => setShowForm(!showForm)}><Plus size={16} /> Add Product</button>
         </div>
@@ -105,8 +167,10 @@ export default function Products() {
           <h3 style={{ fontWeight: 700, marginBottom: '1rem' }}>New Product</h3>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: '1.25rem', marginBottom: '1.5rem' }}>
             <div><label>Product Name</label><input className="input" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} /></div>
+            <div><label>Product Code (SKU)</label><input className="input" value={form.sku} onChange={e => setForm({ ...form, sku: e.target.value })} placeholder="e.g. BEV-001" /></div>
             <div><label>Price ($)</label><input type="number" className="input" value={form.price} onChange={e => setForm({ ...form, price: e.target.value })} /></div>
             <div><label>Initial Stock</label><input type="number" className="input" value={form.stockQuantity} onChange={e => setForm({ ...form, stockQuantity: e.target.value })} /></div>
+            <div><label>Low Stock Alert Threshold</label><input type="number" className="input" value={form.minThreshold} onChange={e => setForm({ ...form, minThreshold: e.target.value })} placeholder="Default is 5" /></div>
             <div>
               <label>Category</label>
               <select className="input" value={form.categoryId} onChange={e => setForm({ ...form, categoryId: e.target.value })}>
@@ -124,28 +188,78 @@ export default function Products() {
         </div>
       )}
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))', gap: '1.25rem' }}>
-        {isLoading ? [1,2,3,4].map(i=><div key={i} className="skeleton" style={{ height:180 }}/>)
-          : products.length === 0 ? (
-            <div className="card" style={{ gridColumn:'1/-1',textAlign:'center',padding:'4rem',color:'var(--color-text-muted)' }}>
-              <Package size={64} style={{ margin:'0 auto 1.5rem',opacity:0.2 }}/>
+      <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+        <div className="table-wrapper">
+          {isLoading ? (
+            <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--color-text-muted)' }}>Loading inventory...</div>
+          ) : products.length === 0 ? (
+            <div style={{ padding: '4rem', textAlign: 'center', color: 'var(--color-text-muted)' }}>
+              <Package size={64} style={{ margin: '0 auto 1.5rem', opacity: 0.2 }} />
               <p style={{ fontSize: '1.1rem' }}>No products found. Add your first item to get started!</p>
             </div>
-          ) : products.map(p => (
-              <div key={p.id} className="card" style={{ padding:'1.5rem', transition: 'transform 0.2s', cursor: 'default' }} onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-4px)'} onMouseLeave={e => e.currentTarget.style.transform = 'none'}>
-                <div style={{ display:'flex',justify8Content:'space-between',alignItems:'flex-start',marginBottom:'1rem' }}>
-                  <div style={{ width:44,height:44,borderRadius:'0.75rem',background:'rgba(99,102,241,0.1)',display:'flex',alignItems:'center',justifyContent:'center' }}><Package size={22} color="var(--color-primary)"/></div>
-                  <span className={`badge ${p.stockQuantity > 20 ? 'badge-success' : p.stockQuantity > 5 ? 'badge-warning' : 'badge-danger'}`}>
-                    {p.stockQuantity} in stock
-                  </span>
-                </div>
-                <h4 style={{ fontWeight:700,fontSize:'1.1rem',marginBottom:'0.25rem' }}>{p.name}</h4>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-                  <span style={{ fontSize: '0.75rem', padding: '0.2rem 0.5rem', background: 'var(--color-bg)', borderRadius: '1rem', color: 'var(--color-text-muted)' }}>{p.categoryName}</span>
-                </div>
-                <p style={{ fontWeight:800,fontSize:'1.25rem',color:'var(--color-primary)' }}>{fmt(p.price)}</p>
-              </div>
-            ))}
+          ) : (
+            <table>
+              <thead>
+                <tr>
+                  <th style={{ width: '40%' }}>Product Details</th>
+                  <th>Price</th>
+                  <th>Stock Level</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.keys(groupedProducts).length === 0 ? (
+                   <tr>
+                     <td colSpan="4" style={{ textAlign: 'center', padding: '2rem', color: 'var(--color-text-muted)' }}>
+                       No products match your search.
+                     </td>
+                   </tr>
+                ) : Object.entries(groupedProducts).map(([catName, items]) => (
+                  <React.Fragment key={catName}>
+                    <tr style={{ background: 'rgba(99,102,241,0.05)' }}>
+                      <td colSpan="4" style={{ padding: '0.5rem 1rem', fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                        {catName}
+                      </td>
+                    </tr>
+                    {items.map(p => (
+                      <tr key={p.id}>
+                        <td>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                            <div style={{ width: 32, height: 32, borderRadius: '0.5rem', background: 'var(--color-surface-2)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--color-border)' }}>
+                              <Package size={16} color="var(--color-text-muted)" />
+                            </div>
+                            <div>
+                              <div style={{ fontWeight: 600 }}>{p.name}</div>
+                              <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)' }}>Code: {p.sku || 'N/A'} | SKU: PRD-{p.id} | Alert at: {p.minThreshold || 5}</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td style={{ fontWeight: 700, color: 'var(--color-primary)' }}>{fmt(p.price)}</td>
+                        <td>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <div style={{ width: '80px', height: '4px', background: 'var(--color-surface-2)', borderRadius: '2px', overflow: 'hidden' }}>
+                              <div style={{ 
+                                width: `${Math.min((p.stockQuantity / 100) * 100, 100)}%`, 
+                                height: '100%', 
+                                background: p.stockQuantity > 20 ? 'var(--color-success)' : p.stockQuantity > 5 ? 'var(--color-warning)' : 'var(--color-danger)' 
+                              }} />
+                            </div>
+                            <span style={{ fontWeight: 600, fontSize: '0.75rem' }}>{p.stockQuantity}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <span className={`badge ${p.stockQuantity > 20 ? 'badge-success' : p.stockQuantity > 5 ? 'badge-warning' : 'badge-danger'}`}>
+                            {p.stockQuantity > 20 ? 'In Stock' : p.stockQuantity > 0 ? 'Low' : 'Empty'}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </React.Fragment>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
       </div>
     </div>
   );

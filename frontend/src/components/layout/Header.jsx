@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import { Bell, Search, User } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Menu, Bell, Search, User } from 'lucide-react';
 import { useAuthStore } from '@/store/authStore';
 import api from '@/services/api';
 
-export const Header = () => {
+export const Header = ({ onMenuClick }) => {
   const { user } = useAuthStore();
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
@@ -47,7 +47,14 @@ export const Header = () => {
       zIndex: 50
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flex: 1 }}>
-        <div style={{ position: 'relative', maxWidth: '400px', width: '100%' }}>
+        <button 
+          className="mobile-toggle" 
+          onClick={onMenuClick}
+          style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--color-text)', padding: '0.5rem' }}
+        >
+          <Menu size={24} />
+        </button>
+        <div style={{ position: 'relative', maxWidth: '400px', width: '100%' }} className="desktop-only">
           <Search size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)' }} />
           <input className="input" placeholder="Search analytics..." style={{ paddingLeft: '40px' }} />
         </div>

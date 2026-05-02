@@ -7,8 +7,9 @@ import java.util.List;
 import com.sbadss.dto.SaleResponse;
 
 public interface SaleService {
-    Sale createSale(SaleRequest request);
-    Sale completeSale(Long saleId);
+    SaleResponse createSale(SaleRequest request);
+    SaleResponse completeSale(Long saleId);
     void deleteSale(Long saleId);
+    java.io.ByteArrayInputStream getInvoicePdf(Long saleId);
     List<SaleResponse> getAllSales(Long branchId);
 }

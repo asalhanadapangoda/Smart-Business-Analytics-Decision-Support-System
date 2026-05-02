@@ -25,6 +25,9 @@ public class Customer extends BaseEntity {
 
     private String address;
 
+    @Column(name = "loyalty_points")
+    private Integer loyaltyPoints = 0;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "branch_id", nullable = false)
     private Branch branch;

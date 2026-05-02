@@ -19,10 +19,16 @@ public class Branch extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String name;
 
+    @Column(unique = true)
+    private String branchCode;
+
     @Column(nullable = false)
     private String location;
 
     private String contactNumber;
+
+    @Column(name = "tax_rate")
+    private java.math.BigDecimal taxRate = java.math.BigDecimal.ZERO;
 
     @Column(name = "is_active")
     private boolean active = true;

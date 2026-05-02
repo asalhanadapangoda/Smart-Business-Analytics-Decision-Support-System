@@ -5,217 +5,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d7f4a90f-9121-4cdc-8815-5bb6f3557f78" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/.idea/sonarlint/issuestore/0/b/0ba1b9c7a4878802f938e331cc2d8a042087ec6b" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/.idea/sonarlint/issuestore/4/4/442292b8a7efeabbe4cc176709b833b1792140ec" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/.idea/sonarlint/issuestore/8/3/83cf14ec82c0961247cff8ace80ddf51236097bd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/.idea/sonarlint/issuestore/c/0/c096ac69f6c67ea34fdab3c2a2d389d716d35532" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/.idea/sonarlint/issuestore/index.pb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/.idea/sonarlint/securityhotspotstore/0/b/0ba1b9c7a4878802f938e331cc2d8a042087ec6b" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/.idea/sonarlint/securityhotspotstore/4/4/442292b8a7efeabbe4cc176709b833b1792140ec" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/.idea/sonarlint/securityhotspotstore/8/3/83cf14ec82c0961247cff8ace80ddf51236097bd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/.idea/sonarlint/securityhotspotstore/c/0/c096ac69f6c67ea34fdab3c2a2d389d716d35532" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/.idea/sonarlint/securityhotspotstore/index.pb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/ai-service/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/ai-service/app/api/chatbot_api.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/ai-service/app/api/forecast_api.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/ai-service/app/api/health_api.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/ai-service/app/api/recommendation_api.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/ai-service/app/core/config.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/ai-service/app/core/logging.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/ai-service/app/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/ai-service/app/models/churn_model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/ai-service/app/models/model_loader.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/ai-service/app/models/sales_forecast_model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/ai-service/app/schemas/chatbot_schema.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/ai-service/app/schemas/forecast_schema.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/ai-service/app/services/chatbot_service.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/ai-service/app/services/forecast_service.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/ai-service/app/services/recommendation_service.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/ai-service/app/utils/data_cleaning.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/ai-service/app/utils/feature_engineering.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/ai-service/requirements.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/audit/AuditAspect.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/audit/AuditLogger.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/common/ApiResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/common/Constants.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/common/ErrorResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/common/StatusEnum.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/config/AsyncConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/config/AuditorAwareImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/config/JacksonConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/config/JpaConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/config/ModelMapperConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/config/RedisConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/config/SchedulerConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/config/SecurityConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/config/WebConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/config/WebSocketConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/controller/AnalyticsController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/controller/AuthController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/controller/BranchController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/controller/CategoryController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/controller/ChatbotController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/controller/CustomerController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/controller/DashboardController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/controller/ExpenseCategoryController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/controller/ExpenseController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/controller/ForecastController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/controller/ProductController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/controller/ReportController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/controller/SaleController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/controller/UserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/dto/AuthResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/dto/ChartSeriesResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/dto/CustomerRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/dto/CustomerResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/dto/DashboardDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/dto/DashboardResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/dto/DataPointResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/dto/ExpenseRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/dto/KPIResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/dto/KpiMetricsResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/dto/LoginRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/dto/ProductRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/dto/ProductResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/dto/RegisterRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/dto/SaleItemRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/dto/SaleRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/entity/Branch.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/entity/Category.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/entity/ChatMessage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/entity/Customer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/entity/Expense.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/entity/ExpenseCategory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/entity/KPIRecord.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/entity/Permission.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/entity/PredictionRecord.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/entity/Product.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/entity/Report.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/entity/Role.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/entity/Sale.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/entity/SaleItem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/entity/SaleStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/entity/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/exception/BusinessException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/exception/GlobalExceptionHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/exception/ResourceNotFoundException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/exception/UnauthorizedException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/exception/ValidationException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/integration/EmailService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/integration/PythonAIClient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/mapper/CustomerMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/mapper/ProductMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/mapper/SaleMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/mapper/UserMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/repository/BranchRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/repository/CategoryRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/repository/CustomerRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/repository/ExpenseCategoryRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/repository/ExpenseRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/repository/ProductRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/repository/ReportRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/repository/RoleRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/repository/SaleItemRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/repository/SaleRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/repository/UserRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/scheduler/DashboardScheduler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/scheduler/KPIUpdateScheduler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/scheduler/ReportScheduler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/security/CustomUserDetailsService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/security/JwtAuthEntryPoint.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/security/JwtAuthenticationFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/security/JwtService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/security/RBACPermissionEvaluator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/security/SecurityConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/AnalyticsService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/AuthService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/BranchService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/CategoryService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/ChatbotService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/CustomerService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/DashboardService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/ExpenseService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/ForecastService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/ProductService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/RecommendationService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/ReportService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/SaleService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/UserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/impl/AnalyticsServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/impl/AuthServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/impl/CategoryServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/impl/ChatbotServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/impl/CustomerServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/impl/DashboardServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/impl/ExpenseServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/impl/ForecastServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/impl/ProductServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/impl/RecommendationServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/impl/ReportServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/impl/SaleServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/service/impl/UserServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/util/CalculationUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/util/CsvExporter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/util/DateUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/websocket/DashboardWebSocketHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/com/sbadss/websocket/WebSocketConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/java/org/example/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/resources/Application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/backend/sbadss-backend/src/main/resources/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/database/postgres.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/devops/docker-compose.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/docker-compose.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/public/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/App.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/components/BarChart.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/components/Button.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/components/ChatWindow.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/components/Input.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/components/KPIWidget.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/components/LineChart.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/components/Modal.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/components/PieChart.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/components/Table.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/main.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/pages/AdminDashboard.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/pages/CashierDashboard.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/pages/ChatbotPage.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/pages/CreateSalePage.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/pages/CustomerListPage.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/pages/ExpenseListPage.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/pages/LoginPage.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/pages/ManagerDashboard.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/pages/ProductListPage.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/pages/RegisterPage.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/pages/ReportsPage.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/pages/SalesListPage.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/routes/AppRoutes.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/routes/PrivateRoute.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/routes/RoleBasedRoute.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/services/aiService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/services/authService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/services/axiosClient.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/services/customerService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/services/expenseService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/services/productService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/services/reportService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/services/salesService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/store/authSlice.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/store/dashboardSlice.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/store/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/store/salesSlice.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/utils/currencyFormatter.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/frontend/sbadss-frontend/src/utils/formatDate.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Business Analytics and Decision Support System/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/controller/CustomerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/controller/SaleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/controller/SaleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/dto/BranchRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/dto/BranchRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/dto/BranchResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/dto/BranchResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/dto/ProductRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/dto/ProductRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/dto/ProductResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/dto/ProductResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/entity/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/entity/Branch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/entity/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/entity/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/mapper/BranchMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/mapper/BranchMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/mapper/ProductMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/mapper/ProductMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/service/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/service/CustomerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/service/SaleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/service/SaleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/service/impl/BranchServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/service/impl/BranchServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/service/impl/CustomerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/service/impl/CustomerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/service/impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/service/impl/ProductServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/service/impl/SaleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/service/impl/SaleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/sbadss/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/layout/DashboardLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layout/DashboardLayout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/layout/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layout/Header.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/layout/Sidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layout/Sidebar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/admin/AdminBranches.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/admin/AdminBranches.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/admin/AdminUsers.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/admin/AdminUsers.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/customers/Customers.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/customers/Customers.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/forecast/Forecast.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/forecast/Forecast.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/products/Products.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/products/Products.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/sales/NewSale.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/sales/NewSale.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/services/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/services/api.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -241,7 +62,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/User/Desktop/Smart Business Analytics & Decision Support System",
+    "last_opened_file_path": "C:/Users/User/Downloads/AyurMitra-main",
     "onboarding.tips.debug.path": "C:/Users/User/Desktop/Smart Business Analytics & Decision Support System/Smart Business Analytics and Decision Support System/src/main/java/org/example/Main.java",
     "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.15",

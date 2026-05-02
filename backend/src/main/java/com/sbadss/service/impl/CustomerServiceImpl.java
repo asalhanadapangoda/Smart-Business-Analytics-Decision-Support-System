@@ -42,4 +42,12 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerMapper.toEntity(dto, branch);
         return customerMapper.toResponse(customerRepository.save(customer));
     }
+
+    @Override
+    public CustomerResponse findByPhoneNumber(String phoneNumber) {
+        log.info("Searching customer by phone: {}", phoneNumber);
+        return customerRepository.findByPhoneNumber(phoneNumber)
+                .map(customerMapper::toResponse)
+                .orElse(null);
+    }
 }

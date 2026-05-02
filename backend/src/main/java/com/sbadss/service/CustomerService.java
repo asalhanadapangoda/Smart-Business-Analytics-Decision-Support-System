@@ -7,4 +7,5 @@ import java.util.List;
 public interface CustomerService {
     List<CustomerResponse> getCustomersByBranch(Long branchId);
     CustomerResponse createCustomer(CustomerRequest dto);
+    CustomerResponse findByPhoneNumber(String phoneNumber);
 }

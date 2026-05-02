@@ -44,4 +44,14 @@ public class ProductController {
         productService.updateStock(id, quantity);
         return ResponseEntity.ok(ApiResponse.success(null, "Stock updated successfully"));
     }
+
+    @PostMapping("/import")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
+    public ResponseEntity<ApiResponse<Void>> importProducts(
+            @RequestParam("file") org.springframework.web.multipart.MultipartFile file,
+            @RequestParam("branchId") Long branchId) {
+        log.info("REST request to import products for branch: {}", branchId);
+        productService.importProducts(file, branchId);
+        return ResponseEntity.ok(ApiResponse.success(null, "Products imported successfully"));
+    }
 }
