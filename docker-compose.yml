@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: sbadss-db
+    environment:
+      POSTGRES_DB: sbadss
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: asal2003
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: sbadss-redis
+    ports:
+      - "6379:6379"
+
+  ai-service:
+    build: ./ai-service
+    container_name: sbadss-ai
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  backend:
+    build: ./backend
+    container_name: sbadss-backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/sbadss
+      SPRING_DATA_REDIS_HOST: redis
+      SBADSS_AI_SERVICE_URL: http://ai-service:8000
+    depends_on:
+      - db
+      - redis
+      - ai-service
+
+  frontend:
+    build: ./frontend
+    container_name: sbadss-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
